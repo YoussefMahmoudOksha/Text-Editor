@@ -12,7 +12,11 @@
 #include <string>
 #include <bits/stdc++.h>
 using namespace std;
-
+void Add(string name);
+void Display(string name);
+void Empty(string name);
+void Encrypt(string name);
+void Decrypt(string name);
 
 
 #endif //UNTITLED15_TEXTEDITOR_H
