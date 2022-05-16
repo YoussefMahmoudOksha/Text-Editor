@@ -8,6 +8,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <bits/stdc++.h>
+#include <algorithm>
+#include <string.h>
+#include <stdio.h>
 #include "TextEditor.h"
 using namespace std;
 void Add(string name) {
@@ -125,5 +129,153 @@ void Decrypt(string name)
     FILE<<Decryption;
 }
 
+void Merge(string F_name)
+{
+    string Append;
+    ofstream FILE;
+    ifstream M_FILE;
+    char M_name[81] ;
+    FILE.open(F_name,ios::app); //loding a new file to marge it
+    cout<<"Please Enter M_File name : ";
+    cin.getline(M_name,81);
+    M_FILE.open(M_name);
 
+    if (!M_FILE)
+    {
+        cout<<"\n Invalid File Name \n";
+    }
+    else
+    {
+        cout<<"\n This File Already Exists \n";
+    }
+
+    while (getline(M_FILE, Append))
+    {
+        FILE << Append;
+    }
+
+    M_FILE.close();
+    FILE.close();
+}
+
+// Count the number of words in the file function.
+
+void number_of_words(string F_name)
+{
+    ifstream FILE;
+    FILE.open(F_name);
+    char ch;
+    int word =1;
+    FILE.seekg(0,ios::beg);
+
+    while(FILE)
+    {
+        FILE.get(ch);
+        if(ch == ' ')
+        {
+           word++;
+        }
+        else if (ch == '\n')
+        {
+            word++;
+        }
+
+    }
+
+    cout<< "The number of word  in the file: "<< word <<"\n";
+
+    FILE.close();
+}
+
+// Count the number of characters in the file function.
+
+void number_of_characters(string F_name)
+{
+    ifstream FILE;
+    FILE.open(F_name);
+    char ch;
+    int characters = 0;
+
+    FILE.seekg(0,ios::beg);
+    while(FILE)
+    {
+        FILE.get(ch);
+        if(ch == ' ' || ch == '\n')
+        {
+            characters += 0;
+        }
+        else
+        {
+            characters++;
+        }
+
+    }
+    cout << "The number of characters  in the file: " << characters << "\n";
+
+    FILE.close();
+}
+
+// Count the number of lines in the file function.
+
+void number_of_lines(string F_name)
+{
+    ifstream FILE;
+    FILE.open(F_name);
+    int lines = 0 ;
+    string curr;
+
+    while(getline(FILE, curr))
+    {
+       for(int i = 0;i<curr.size();i++)
+       {
+           if(curr[i] =='.' || curr[i] =='?' || curr[i] =='!' || curr[i] =='\n')
+           {
+               lines++;
+           }
+       }
+
+    }
+
+    cout << "The number of lines in the file: " << lines << "\n";
+    FILE.close();
+}
+
+// Search for a word in the file function.
+
+void Search_for_a_word(string F_name)
+{
+
+    ifstream FILE;
+    FILE.open(F_name);
+    string str;
+    string curr = "";
+    bool isFound=0;
+
+    cout << "Enter the word that you Searching on it: /n" ;
+    getline(cin, str);
+    transform(str.begin(), str.end(), str.begin(), ::toupper);
+ //Convert the input and the file to the same size so that the comparison equation can be found if the required word is found
+    while(getline(FILE, curr))
+    {
+        transform(curr.begin(), curr.end(), curr.begin(), ::toupper);
+        if (curr.find(str) != string::npos)
+        {
+            cout << "word was found" << endl;
+            isFound = 0;
+            break;
+        }
+        else
+        {
+            isFound = 1;
+        }
+    }
+
+    while(isFound)
+    {
+        cout << "word was not found" << endl;
+        isFound = 0;
+    }
+    FILE.close();
+}
+   
 
